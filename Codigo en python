@@ -1,0 +1,91 @@
+#hola mi nombre es Roberto Gonzalez estoy presentando mi actividad 2
+#sobre la materia de Programacion Orientada a Objetos este codigo esta hecho sobre el lenguaje de Python
+#este codigo nos permite revisar 5 operaciones basicas en un contexto ordinario para nuevos usuarios
+#con la finalidad de ayudarlos en su dia a dia
+class Operacion:
+    def __init__(self, num1, num2):
+        self._num1 = num1
+        self._num2 = num2
+
+    def suma(self):
+        return self._num1 + self._num2
+
+    def resta(self):
+        return self._num1 - self._num2
+
+    def multiplicacion(self):
+        return self._num1 * self._num2
+
+    def division(self):
+        if self._num2 != 0:
+            return self._num1 / self._num2
+        else:
+            return "Error: división por cero"
+
+    def porcentaje(self):
+        return (self._num1 * self._num2) / 100
+
+
+class MenuOperaciones:
+    _opciones = {
+        "1": "Suma",
+        "2": "Resta",
+        "3": "Multiplicación",
+        "4": "División",
+        "5": "Porcentaje"
+    }
+
+    @classmethod
+    def mostrar_menu(cls):
+        print("\nPor favor, elige la opción que deseas realizar:")
+        for key, value in cls._opciones.items():
+            print(f"({key}) {value}")
+
+    @classmethod
+    def es_opcion_valida(cls, opcion):
+        return opcion in cls._opciones
+
+
+class Aplicacion:
+    def __init__(self):
+        print("Bienvenido al sistema de operaciones básicas para principiantes.")
+
+    def iniciar(self):
+        continuar = True
+        while continuar:
+            MenuOperaciones.mostrar_menu()
+            opcion = input("Ingresa el número de la operación que deseas realizar: ")
+
+            if MenuOperaciones.es_opcion_valida(opcion):
+                try:
+                    num1 = float(input("\nIngresa el primer número: "))
+                    num2 = float(input("Ingresa el segundo número: "))
+                    op = Operacion(num1, num2)
+
+                    resultado = {
+                        "1": op.suma,
+                        "2": op.resta,
+                        "3": op.multiplicacion,
+                        "4": op.division,
+                        "5": op.porcentaje
+                    }[opcion]()
+
+                    print(f"\nResultado: {resultado}")
+                except ValueError:
+                    print("\nPor favor, ingresa números válidos.")
+            else:
+                print("\nOpción no válida. Elige un número entre 1 y 5.")
+
+            continuar = input("\n¿Deseas realizar otra operación? (si/no): ").lower() == "si"
+
+        self._despedida()
+
+    def _despedida(self):
+        print("\n¡Gracias por usar este sistema!")
+        print("Esta fue la actividad número 2 de la materia Programacion Orientada a Objetos.")
+        print("¡Que tengas un excelente día!")
+
+
+if __name__ == "__main__":
+    app = Aplicacion()
+    app.iniciar()
